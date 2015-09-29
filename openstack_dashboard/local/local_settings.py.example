@@ -65,6 +65,7 @@ WEBROOT = '/'
 #CONSOLE_TYPE = "AUTO"
 
 # Default OpenStack Dashboard configuration.
+# reset password link will not be shown if password_reset_link is omitted from HORIZON_CONFIG
 HORIZON_CONFIG = {
     'user_home': 'openstack_dashboard.views.get_user_home',
     'ajax_queue_limit': 10,
@@ -81,6 +82,7 @@ HORIZON_CONFIG = {
     'angular_modules': [],
     'js_files': [],
     'js_spec_files': [],
+    'password_reset_link': '',
 }
 
 # Specify a regular expression to validate user passwords.

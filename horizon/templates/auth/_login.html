@@ -44,4 +44,7 @@
     <span ng-show="auth_type==='credentials'">{% trans "Sign In" %}</span>
     <span ng-hide="auth_type==='credentials'" ng-cloak>{% trans "Connect" %}</span>
   </button>
+  {% if HORIZON_CONFIG.password_reset_link  %}
+    <a id="reset_password"  style="position:absolute;left:200px;padding-top:6px;padding-bottom:4px;margin-top:1px;margin-bottom:1px;"  href={{HORIZON_CONFIG.password_reset_link}}>{% trans "Reset Password" %}</a>
+  {% endif  %}
 {% endblock %}
