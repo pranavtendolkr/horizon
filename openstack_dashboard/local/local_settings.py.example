@@ -85,6 +85,11 @@ HORIZON_CONFIG = {
     'password_reset_link': '',
 }
 
+# List of error message which will be shown  instead of being supressed 
+# Used for bubbling openldap errors to the main page. 
+# Matches whole or part of the error message 
+ERROR_WHITELIST = ['Password not strong enough:','Password fails quality checking policy']
+
 # Specify a regular expression to validate user passwords.
 #HORIZON_CONFIG["password_validator"] = {
 #    "regex": '.*',

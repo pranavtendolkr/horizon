@@ -157,8 +157,12 @@ class CreateUserForm(PasswordMixin, BaseUserForm):
         except exceptions.Conflict:
             msg = _('User name "%s" is already used.') % data['name']
             messages.error(request, msg)
-        except Exception:
-            exceptions.handle(request, _('Unable to create user.'))
+        except Exception as exc:
+            error_whitelist = getattr(settings, 'ERROR_WHITELIST', [])
+            if  any(err in exc.message for err in error_whitelist):
+                messages.error(request,_(exc.message))
+            else:
+                messages.error(request,_('Unable to create user.'))
 
 
 class UpdateUserForm(BaseUserForm):
@@ -259,9 +263,13 @@ class ChangePasswordForm(PasswordMixin, forms.SelfHandlingForm):
                     redirect=False)
             messages.success(request,
                              _('User password has been updated successfully.'))
-        except Exception:
+        except Exception as exe:
             response = exceptions.handle(request, ignore=True)
-            messages.error(request, _('Unable to update the user password.'))
+            error_whitelist = getattr(settings, 'ERROR_WHITELIST', [])
+            if  any(err in exe.message for err in error_whitelist):
+                messages.error(request,_(exe.message))
+            else:
+                messages.error(request, _('Unable to update the user password.'))
 
         if isinstance(response, http.HttpResponse):
             return response
